@@ -53,6 +53,7 @@ namespace RFVehicleLockLimiter
         public override TranslationList DefaultTranslations => new()
         {
             {$"{EResponse.VEHICLE_LOCK_LIMIT_REACH}", "You have reach maximum vehicle lock limit! Max: {0} vehicles"},
+            {$"{EResponse.VEHICLE_LOCK}", "Used vehicle lock: {0}/{1}"},
         };
     }
 }

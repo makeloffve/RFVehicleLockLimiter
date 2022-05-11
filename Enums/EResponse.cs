@@ -2,6 +2,7 @@
 {
     public enum EResponse
     {
-        VEHICLE_LOCK_LIMIT_REACH
+        VEHICLE_LOCK_LIMIT_REACH,
+        VEHICLE_LOCK
     }
 }

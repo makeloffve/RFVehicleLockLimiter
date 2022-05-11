@@ -34,7 +34,14 @@ namespace RFVehicleLockLimiter.Patches
                 currentCount += LockUtil.CountRFGarage(uPlayer.CSteamID.m_SteamID);
 
             if (currentCount < limit)
+            {
+                ChatHelper.Say(uPlayer,
+                    currentCount + 1 >= limit
+                        ? Plugin.Inst.Translate(EResponse.VEHICLE_LOCK_LIMIT_REACH.ToString(), limit)
+                        : Plugin.Inst.Translate(EResponse.VEHICLE_LOCK.ToString(), currentCount, limit),
+                    Plugin.MsgColor, Plugin.Conf.MessageIconUrl);
                 return true;
+            }
 
             ChatHelper.Say(uPlayer, Plugin.Inst.Translate(EResponse.VEHICLE_LOCK_LIMIT_REACH.ToString(), limit),
                 Plugin.MsgColor, Plugin.Conf.MessageIconUrl);
