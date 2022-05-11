@@ -2,6 +2,8 @@
 using RFVehicleLockLimiter.Enums;
 using Rocket.API.Collections;
 using Rocket.Core.Plugins;
+using Rocket.Unturned.Chat;
+using UnityEngine;
 using Logger = Rocket.Core.Logging.Logger;
 
 namespace RFVehicleLockLimiter
@@ -10,10 +12,11 @@ namespace RFVehicleLockLimiter
     {
         private static int Major = 1;
         private static int Minor = 0;
-        private static int Patch = 0;
+        private static int Patch = 1;
 
         public static Plugin Inst;
         public static Configuration Conf;
+        internal static Color MsgColor;
         private Harmony _harmony;
 
         protected override void Load()
@@ -22,6 +25,7 @@ namespace RFVehicleLockLimiter
             Conf = Configuration.Instance;
             if (Conf.Enabled)
             {
+                MsgColor = UnturnedChat.GetColorFromName(Conf.MessageColor, Color.green);
                 _harmony = new Harmony("RFVehicleLockLimiter.Patches");
                 _harmony.PatchAll();
             }

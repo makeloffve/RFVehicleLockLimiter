@@ -45,6 +45,9 @@
         <Reference Include="RFGarage">
           <HintPath>..\RFGarage\bin\Release\RFGarage.dll</HintPath>
         </Reference>
+        <Reference Include="RFRocketLibrary">
+          <HintPath>..\..\..\Libraries\RFRocketMod\RFRocketLibrary.dll</HintPath>
+        </Reference>
         <Reference Include="Rocket.API, Version=4.9.3.4, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\..\..\Libraries\RocketMod\Rocket.API.dll</HintPath>
         </Reference>

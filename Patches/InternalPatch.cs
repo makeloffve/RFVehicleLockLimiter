@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using RFRocketLibrary.Helpers;
 using RFVehicleLockLimiter.Enums;
 using RFVehicleLockLimiter.Utils;
 using Rocket.Unturned.Chat;
@@ -19,18 +20,25 @@ namespace RFVehicleLockLimiter.Patches
             if (player == null)
                 return true;
 
+            var vehicle = player.movement.getVehicle();
+            if (vehicle == null)
+                return true;
+
             var uPlayer = UnturnedPlayer.FromPlayer(player);
+            if (uPlayer.CSteamID.m_SteamID == vehicle.lockedOwner.m_SteamID && vehicle.isLocked)
+                return true;
+
             var limit = LockUtil.GetBestLockLimit(uPlayer);
             var currentCount = LockUtil.GetVehicleLockedCount(uPlayer.CSteamID.m_SteamID);
             if (Plugin.Conf.SyncWithRFGarage)
-                currentCount += RFGarage.DatabaseManagers.GarageManager.Count(uPlayer.CSteamID.m_SteamID);
-            
-            if (currentCount < limit) 
-                return true;
-            
-            UnturnedChat.Say(uPlayer, Plugin.Inst.Translate(EResponse.VEHICLE_LOCK_LIMIT_REACH.ToString(), limit), Color.green);
-            return false;
+                currentCount += LockUtil.CountRFGarage(uPlayer.CSteamID.m_SteamID);
 
+            if (currentCount < limit)
+                return true;
+
+            ChatHelper.Say(uPlayer, Plugin.Inst.Translate(EResponse.VEHICLE_LOCK_LIMIT_REACH.ToString(), limit),
+                Plugin.MsgColor, Plugin.Conf.MessageIconUrl);
+            return false;
         }
     }
 }

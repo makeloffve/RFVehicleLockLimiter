@@ -48,7 +48,12 @@ namespace RFVehicleLockLimiter.Utils
 
         internal static int GetVehicleLockedCount(ulong steamId)
         {
-            return VehicleManager.vehicles.Count(vehicle => vehicle.lockedOwner.m_SteamID == steamId);
+            return VehicleManager.vehicles.Count(vehicle => vehicle.lockedOwner.m_SteamID == steamId && vehicle.isLocked);
+        }
+
+        internal static int CountRFGarage(ulong steamId)
+        {
+            return RFGarage.DatabaseManagers.GarageManager.Count(steamId);
         }
     }
 }
