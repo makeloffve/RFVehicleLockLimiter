@@ -38,7 +38,7 @@ namespace RFVehicleLockLimiter.Patches
                 ChatHelper.Say(uPlayer,
                     currentCount + 1 >= limit
                         ? Plugin.Inst.Translate(EResponse.VEHICLE_LOCK_LIMIT_REACH.ToString(), limit)
-                        : Plugin.Inst.Translate(EResponse.VEHICLE_LOCK.ToString(), currentCount, limit),
+                        : Plugin.Inst.Translate(EResponse.VEHICLE_LOCK.ToString(), currentCount + 1, limit),
                     Plugin.MsgColor, Plugin.Conf.MessageIconUrl);
                 return true;
             }
