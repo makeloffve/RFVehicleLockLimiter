@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using RFVehicleLockLimiter.Models;
 using Rocket.API;
 using Rocket.Core.Logging;
 using Rocket.Unturned.Player;
@@ -13,42 +14,33 @@ namespace RFVehicleLockLimiter.Utils
         {
             var permissions = player.GetPermissions().Select(a => a.Name).Where(p =>
                 p.ToLower().StartsWith(Permissions.Lock) && !p.Equals(Permissions.Lock,
-                    StringComparison.OrdinalIgnoreCase));
-            var enumerable = permissions as string[] ?? permissions.ToArray();
-            if (enumerable.Length == 0)
+                    StringComparison.OrdinalIgnoreCase)).ToList();
+            if (permissions.Count == 0)
                 return Plugin.Conf.DefaultVehicleLockLimit;
 
             uint bestLockLimit = 0;
-            foreach (var pocket in enumerable)
+            foreach (var perm in permissions)
             {
-                var pocketSplit = pocket.Split('.');
+                var pocketSplit = perm.Split('.');
                 if (pocketSplit.Length != 2)
                 {
-                    Logger.LogError($"[{Plugin.Inst.Name}] Error: PermissionPrefix must not contain '.'");
-                    Logger.LogError($"[{Plugin.Inst.Name}] Invalid permission format: {pocket}");
-                    Logger.LogError($"[{Plugin.Inst.Name}] Correct format: 'permPrefix'.'amount'");
+                    Logger.LogError($"[{Plugin.Inst.Name}] Invalid permission format: {perm}");
+                    Logger.LogError($"[{Plugin.Inst.Name}] Correct format: {Permissions.Lock}'amount'");
                     continue;
                 }
 
-                try
-                {
-                    byte.TryParse(pocketSplit[1], out var limit);
-                    if (limit > bestLockLimit)
-                        bestLockLimit = limit;
-                }
-                catch (Exception ex)
-                {
-                    bestLockLimit = Plugin.Conf.DefaultVehicleLockLimit;
-                    Logger.LogError($"[{Plugin.Inst.Name}] Error: " + ex);
-                }
+                byte.TryParse(pocketSplit.ElementAtOrDefault(1), out var limit);
+                if (limit > bestLockLimit)
+                    bestLockLimit = limit;
             }
-            
+
             return bestLockLimit;
         }
 
         internal static int GetVehicleLockedCount(ulong steamId)
         {
-            return VehicleManager.vehicles.Count(vehicle => vehicle.lockedOwner.m_SteamID == steamId && vehicle.isLocked);
+            return VehicleManager.vehicles.Count(
+                vehicle => vehicle.lockedOwner.m_SteamID == steamId && vehicle.isLocked && !Plugin.Conf.IgnoredIDs.Contains(new Vehicle {Id = vehicle.asset.id}));
         }
 
         internal static int CountRFGarage(ulong steamId)

@@ -77,6 +77,7 @@
     <ItemGroup>
         <Compile Include="Configuration.cs" />
         <Compile Include="Enums\EResponse.cs" />
+        <Compile Include="Models\Vehicle.cs" />
         <Compile Include="Patches\InternalPatch.cs" />
         <Compile Include="Permissions.cs" />
         <Compile Include="Plugin.cs" />

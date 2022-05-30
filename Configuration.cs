@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using RFVehicleLockLimiter.Models;
 using Rocket.API;
 
 namespace RFVehicleLockLimiter
@@ -7,16 +9,24 @@ namespace RFVehicleLockLimiter
         public bool Enabled;
         public string MessageColor;
         public string MessageIconUrl;
-        public bool SyncWithRFGarage;
+        public bool IgnoreAdmins;
         public uint DefaultVehicleLockLimit;
+        public bool SyncWithRFGarage;
+        public HashSet<Vehicle> IgnoredIDs;
 
         public void LoadDefaults()
         {
             Enabled = true;
             MessageColor = "green";
             MessageIconUrl = "https://cdn.jsdelivr.net/gh/RiceField-Plugins/UnturnedImages@images/plugin/RFVault/RFVault.png";
-            SyncWithRFGarage = false;
+            IgnoreAdmins = true;
             DefaultVehicleLockLimit = 1;
+            SyncWithRFGarage = false;
+            IgnoredIDs = new HashSet<Vehicle>
+            {
+                new Vehicle { Id = 1 },
+                new Vehicle { Id = 2 },
+            };
         }
     }
 }

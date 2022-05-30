@@ -1,11 +1,10 @@
 ﻿using HarmonyLib;
 using RFRocketLibrary.Helpers;
 using RFVehicleLockLimiter.Enums;
+using RFVehicleLockLimiter.Models;
 using RFVehicleLockLimiter.Utils;
-using Rocket.Unturned.Chat;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
-using UnityEngine;
 
 namespace RFVehicleLockLimiter.Patches
 {
@@ -18,10 +17,16 @@ namespace RFVehicleLockLimiter.Patches
         {
             var player = context.GetPlayer();
             if (player == null)
+                return false;
+
+            if (Plugin.Conf.IgnoreAdmins && player.channel.owner.isAdmin)
                 return true;
 
             var vehicle = player.movement.getVehicle();
             if (vehicle == null)
+                return false;
+
+            if (Plugin.Conf.IgnoredIDs.Contains(new Vehicle { Id = vehicle.asset.id }))
                 return true;
 
             var uPlayer = UnturnedPlayer.FromPlayer(player);
@@ -36,7 +41,7 @@ namespace RFVehicleLockLimiter.Patches
             if (currentCount < limit)
             {
                 ChatHelper.Say(uPlayer,
-                    currentCount + 1 >= limit
+                    currentCount + 1 == limit
                         ? Plugin.Inst.Translate(EResponse.VEHICLE_LOCK_LIMIT_REACH.ToString(), limit)
                         : Plugin.Inst.Translate(EResponse.VEHICLE_LOCK.ToString(), currentCount + 1, limit),
                     Plugin.MsgColor, Plugin.Conf.MessageIconUrl);
