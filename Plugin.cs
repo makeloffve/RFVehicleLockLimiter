@@ -52,8 +52,18 @@ namespace RFVehicleLockLimiter
 
         public override TranslationList DefaultTranslations => new()
         {
-            {$"{EResponse.VEHICLE_LOCK_LIMIT_REACH}", "You have reach maximum vehicle lock limit! Max: {0} vehicles"},
-            {$"{EResponse.VEHICLE_LOCK}", "Used vehicle lock: {0}/{1}"},
+            {$"{EResponse.VEHICLE_LOCK_LIMIT_REACH}", "达到锁车上限: {0}, 请提升你的权限!"},
+            {$"{EResponse.VEHICLE_LOCK}", "载具上锁情况: {0}/{1}"},
+            {"unlock_success", "成功解锁了 {0} 个载具."},
+            {"unlock_op_success", "管理员 {0} 成功解锁了地图上所有载具."},
+            {"unlock_console_success", "管理员在后台成功解锁了地图上所有载具."},
+            {"vehicle_info", "载具实例号:{0}, 载具名:{1}, 使用: /mv {0} 地图上查看你的载具位置."},
+            {"vehicle_info_op", "载具实例号:{0}, 载具名:{1}, 载具拥有人steamId:{2}."},
+            {"vehicle_locked_count", "全服共用{0}被锁的载具."},
+            {"vehicle_not_found", "找不到这个实例的载具,请核实."},
+            {"vehicle_not_yours", "这个车不属于你."},
+            {"vehicle_mark_success", "成功标记车辆,按M打开地图查看."},
+            {"have_no_locked_vehicle", "没有被锁的车辆."},
         };
     }
 }
