@@ -75,7 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\TeleportToVehicleCommand.cs" />
+    <Compile Include="Commands\MarkVehicleCommand.cs" />
     <Compile Include="Commands\UnlockAllCommand.cs" />
     <Compile Include="Commands\UnlockCommand.cs" />
     <Compile Include="Commands\WhereVehicleCommand.cs" />
