@@ -38,8 +38,10 @@ namespace RFVehicleLockLimiter.Commands
                     ChatManager.say(player.CSteamID, Plugin.Inst.Translations.Instance.Translate("vehicle_not_yours"), Color.red);
                     return;
                 }
-                player.Player.quests.sendSetMarker(true, vehicle.transform.position);
-                ChatManager.say(player.CSteamID, Plugin.Inst.Translations.Instance.Translate("vehicle_mark_success"), Color.magenta);
+                Vector3 currrentPosition = player.Position;
+                Vector3 vehiclePosotion = vehicle.transform.position;
+                float distance = Vector3.Distance(currrentPosition, vehiclePosotion);
+                ChatManager.say(player.CSteamID, Plugin.Inst.Translations.Instance.Translate("vehicle_mark_success", currrentPosition, vehiclePosotion, distance), Color.magenta);
             }
             else
             {

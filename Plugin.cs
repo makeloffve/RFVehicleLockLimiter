@@ -57,12 +57,12 @@ namespace RFVehicleLockLimiter
             {"unlock_success", "成功解锁了 {0} 个载具."},
             {"unlock_op_success", "管理员 {0} 成功解锁了地图上所有载具."},
             {"unlock_console_success", "管理员在后台成功解锁了地图上所有载具."},
-            {"vehicle_info", "载具实例号:{0}, 载具名:{1}, 使用: /mv {0} 地图上查看你的载具位置."},
+            {"vehicle_info", "载具实例号:{0}, 载具名:{1}, 使用: /mv {0} 查看载具坐标."},
             {"vehicle_info_op", "载具实例号:{0}, 载具名:{1}, 载具拥有人steamId:{2}."},
             {"vehicle_locked_count", "全服共用{0}被锁的载具."},
             {"vehicle_not_found", "找不到这个实例的载具,请核实."},
             {"vehicle_not_yours", "这个车不属于你."},
-            {"vehicle_mark_success", "成功标记车辆,按M打开地图查看."},
+            {"vehicle_mark_success", "当前坐标 {0},载具坐标 {1}, 距离: {2}."},
             {"have_no_locked_vehicle", "没有被锁的车辆."},
         };
     }
