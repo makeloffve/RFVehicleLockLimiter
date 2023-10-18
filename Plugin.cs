@@ -66,6 +66,8 @@ namespace RFVehicleLockLimiter
             {"have_no_locked_vehicle", "没有被锁的车辆."},
             {"cannot_lock_train", "火车是公共载具,禁止上锁."},
             {"cannot_lock", "服务器禁止对此载具上锁,和保存到云车库."},
+            {"clean_special_vehicles_success", "公共载具已经被清理,由管理员决定发起下一次开放."},
+            {"have_no_special_vehicle", "服务器没有特殊载具,请管理员先投放."},
         };
     }
 }
