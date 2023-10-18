@@ -3,8 +3,11 @@ using RFRocketLibrary.Helpers;
 using RFVehicleLockLimiter.Enums;
 using RFVehicleLockLimiter.Models;
 using RFVehicleLockLimiter.Utils;
+using Rocket.API;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
+using System.Linq;
+using UnityEngine;
 
 namespace RFVehicleLockLimiter.Patches
 {
@@ -28,8 +31,25 @@ namespace RFVehicleLockLimiter.Patches
 
             if (Plugin.Conf.IgnoredIDs.Contains(new Vehicle { Id = vehicle.asset.id }))
                 return true;
-
-            var uPlayer = UnturnedPlayer.FromPlayer(player);
+            
+            UnturnedPlayer uPlayer = UnturnedPlayer.FromPlayer(player);
+            if (uPlayer == null)
+                return false;
+            // 如果是火车并且RFGarage里面禁止保存火车,那么禁止上锁
+            if (!RFGarage.Plugin.Conf.AllowTrain && vehicle.asset.engine == EEngine.TRAIN)
+            {
+                ChatManager.say(uPlayer.CSteamID, Plugin.Inst.Translations.Instance.Translate("cannot_lock_train"), Color.red);
+                return false;
+            }
+            // 如果是RFGarage里面不允许存入车库的车辆,那么禁止上锁
+            if (RFGarage.Plugin.Conf.Blacklists.Any(x =>
+                    x.Type == RFGarage.Enums.EBlacklistType.VEHICLE && !uPlayer.HasPermission(x.BypassPermission) &&
+                    x.IdList.Contains(vehicle.id)))
+            {
+                ChatManager.say(uPlayer.CSteamID, Plugin.Inst.Translations.Instance.Translate("cannot_lock"), Color.red);
+                return false;
+            }
+           
             if (uPlayer.CSteamID.m_SteamID == vehicle.lockedOwner.m_SteamID && vehicle.isLocked)
                 return true;
 

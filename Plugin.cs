@@ -64,6 +64,8 @@ namespace RFVehicleLockLimiter
             {"vehicle_not_yours", "这个车不属于你."},
             {"vehicle_mark_success", "当前坐标 {0},载具坐标 {1}, 距离: {2}米."},
             {"have_no_locked_vehicle", "没有被锁的车辆."},
+            {"cannot_lock_train", "火车是公共载具,禁止上锁."},
+            {"cannot_lock", "服务器禁止对此载具上锁,和保存到云车库."},
         };
     }
 }
