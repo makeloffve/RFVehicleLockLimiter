@@ -40,7 +40,7 @@ namespace RFVehicleLockLimiter.Commands
                 }
                 Vector3 currrentPosition = player.Position;
                 Vector3 vehiclePosotion = vehicle.transform.position;
-                float distance = Vector3.Distance(currrentPosition, vehiclePosotion);
+                int distance = (int)Vector3.Distance(currrentPosition, vehiclePosotion);
                 ChatManager.say(player.CSteamID, Plugin.Inst.Translations.Instance.Translate("vehicle_mark_success", currrentPosition, vehiclePosotion, distance), Color.magenta);
             }
             else

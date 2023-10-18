@@ -62,7 +62,7 @@ namespace RFVehicleLockLimiter
             {"vehicle_locked_count", "全服共用{0}被锁的载具."},
             {"vehicle_not_found", "找不到这个实例的载具,请核实."},
             {"vehicle_not_yours", "这个车不属于你."},
-            {"vehicle_mark_success", "当前坐标 {0},载具坐标 {1}, 距离: {2}."},
+            {"vehicle_mark_success", "当前坐标 {0},载具坐标 {1}, 距离: {2}米."},
             {"have_no_locked_vehicle", "没有被锁的车辆."},
         };
     }
