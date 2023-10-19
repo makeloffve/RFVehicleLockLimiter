@@ -24,7 +24,7 @@ namespace RFVehicleLockLimiter.Commands
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-            UnturnedPlayer opPlayer = (UnturnedPlayer)caller;
+            UnturnedPlayer opPlayer = null;
             try
             {
                 opPlayer = ((UnturnedPlayer)caller);
@@ -47,24 +47,16 @@ namespace RFVehicleLockLimiter.Commands
                     VehicleManager.askVehicleDestroy(vehicle);
                 });
 
-                string tips = Plugin.Inst.Translations.Instance.Translate("clean_special_vehicles_success");
-                if (!isConsole)
-                {
-                    ChatManager.say(Plugin.Inst.Translations.Instance.Translate("clean_special_vehicles_success"), UnityEngine.Color.yellow);
-                }
+                ChatManager.say(Plugin.Inst.Translations.Instance.Translate("clean_special_vehicles_success"), UnityEngine.Color.yellow);
                 Logger.Log($"[CleanSpecialVehiclesCommand] clean special vehicles success");
             }
             else
             {
-                string tips = Plugin.Inst.Translations.Instance.Translate("have_no_special_vehicle");
                 if (!isConsole)
                 {
-                    ChatManager.say(opPlayer.CSteamID, tips, UnityEngine.Color.red);
+                    ChatManager.say(opPlayer.CSteamID, Plugin.Inst.Translations.Instance.Translate("have_no_special_vehicle"), UnityEngine.Color.red);
                 }
-                else
-                {
-                    Logger.Log($"[CleanSpecialVehiclesCommand] there is no special vehicles to clean, pls /give [id].....");
-                }
+                Logger.Log($"[CleanSpecialVehiclesCommand] there is no special vehicles to clean.....");
             }
         }
     }

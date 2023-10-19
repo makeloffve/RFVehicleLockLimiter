@@ -24,7 +24,7 @@ namespace RFVehicleLockLimiter.Commands
 
         public void Execute(IRocketPlayer caller, string[] command)
         {
-            UnturnedPlayer opPlayer = (UnturnedPlayer)caller;
+            UnturnedPlayer opPlayer = null;
             try
             {
                 opPlayer = ((UnturnedPlayer)caller);
